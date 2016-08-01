@@ -7,7 +7,14 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> layout
   def contact
+  end
+
+  def help
   end
 end
