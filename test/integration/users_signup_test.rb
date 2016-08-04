@@ -13,7 +13,22 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   		end																	#and verifying that the count is the same
   	assert_template 'users/new'
   	assert_select 'div#error_explanation'
-  	assert_select 'div.alert'
+  	assert_select 'div.alert-danger'
 
+  end
+
+  test "valid signup" do
+  	get signup_path
+  	assert_select 'form[action="/signup"]'
+  	assert_difference 'User.count', 1 do 	# User.count, difference wanted
+  		post users_path, params: { user: { name: "Example User",
+  										   email: "user@example.com",
+  										   password: 				"password",
+  										   password_confirmation: 	"password" } }
+  		end
+  	follow_redirect!
+  	assert_template 'users/show'
+  	assert_select 'div.alert-success'
+  	assert_not flash.empty?
   end
 end
